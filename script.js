@@ -35,19 +35,15 @@ async function shortenUrl() {
   errorMsg.classList.add('hidden');
 
   try {
-    const target = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
-    const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(target)}`;
-    const response = await fetch(proxyUrl);
+    const apiUrl = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`;
+    const response = await fetch(apiUrl);
     if (!response.ok) throw new Error('서버 응답 오류');
-    const data = await response.json();
+    const shortUrl = (await response.text()).trim();
+    if (!shortUrl.startsWith('http')) throw new Error('단축에 실패했습니다.');
 
-    if (data.resulturl) {
-      shortUrlInput.value = data.resulturl;
-      result.classList.remove('hidden');
-      copyMsg.classList.add('hidden');
-    } else {
-      throw new Error(data.description || '단축에 실패했습니다.');
-    }
+    shortUrlInput.value = shortUrl;
+    result.classList.remove('hidden');
+    copyMsg.classList.add('hidden');
   } catch (err) {
     errorMsg.textContent = `오류: ${err.message}`;
     errorMsg.classList.remove('hidden');
