@@ -35,7 +35,8 @@ async function shortenUrl() {
   errorMsg.classList.add('hidden');
 
   try {
-    const apiUrl = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
+    const target = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
+    const apiUrl = `https://corsproxy.io/?${encodeURIComponent(target)}`;
     const response = await fetch(apiUrl);
     if (!response.ok) throw new Error('서버 응답 오류');
     const data = await response.json();
