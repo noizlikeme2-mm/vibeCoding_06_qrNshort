@@ -17,41 +17,63 @@ const copyBtn = document.getElementById('copyBtn');
 const copyMsg = document.getElementById('copyMsg');
 const errorMsg = document.getElementById('errorMsg');
 
+// localStorage 기반 URL 단축 (CORS 문제 없음)
+const BASE = 'https://noizlikeme2-mm.github.io/vibeCoding_06_qrNshort/#';
+
+function makeCode(url) {
+  let hash = 0;
+  for (let i = 0; i < url.length; i++) {
+    hash = ((hash << 5) - hash) + url.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash).toString(36).slice(0, 6);
+}
+
+function loadMap() {
+  return JSON.parse(localStorage.getItem('urlMap') || '{}');
+}
+
+function saveMap(map) {
+  localStorage.setItem('urlMap', JSON.stringify(map));
+}
+
+// 페이지 로드 시 해시 리다이렉트 처리
+window.addEventListener('load', () => {
+  const hash = location.hash.slice(1);
+  if (hash) {
+    const map = loadMap();
+    if (map[hash]) {
+      location.replace(map[hash]);
+    }
+  }
+});
+
 shortenBtn.addEventListener('click', shortenUrl);
 longUrlInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') shortenUrl();
 });
 
-async function shortenUrl() {
+function shortenUrl() {
   const url = longUrlInput.value.trim();
   if (!url) {
     alert('URL을 입력해주세요.');
     return;
   }
+  if (!url.startsWith('http')) {
+    alert('https:// 로 시작하는 URL을 입력해주세요.');
+    return;
+  }
 
-  shortenBtn.disabled = true;
-  shortenBtn.textContent = '처리 중...';
-  result.classList.add('hidden');
   errorMsg.classList.add('hidden');
 
-  try {
-    const target = `https://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`;
-    const apiUrl = `https://corsproxy.io/?${encodeURIComponent(target)}`;
-    const response = await fetch(apiUrl);
-    if (!response.ok) throw new Error('서버 응답 오류');
-    const data = await response.json();
-    if (!data.shorturl) throw new Error(data.errormessage || '단축에 실패했습니다.');
+  const code = makeCode(url);
+  const map = loadMap();
+  map[code] = url;
+  saveMap(map);
 
-    shortUrlInput.value = data.shorturl;
-    result.classList.remove('hidden');
-    copyMsg.classList.add('hidden');
-  } catch (err) {
-    errorMsg.textContent = `오류: ${err.message}`;
-    errorMsg.classList.remove('hidden');
-  } finally {
-    shortenBtn.disabled = false;
-    shortenBtn.textContent = '단축';
-  }
+  shortUrlInput.value = BASE + code;
+  result.classList.remove('hidden');
+  copyMsg.classList.add('hidden');
 }
 
 copyBtn.addEventListener('click', () => {
