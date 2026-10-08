@@ -35,8 +35,9 @@ async function shortenUrl() {
   errorMsg.classList.add('hidden');
 
   try {
-    const apiUrl = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`;
-    const response = await fetch(apiUrl);
+    const target = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`;
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`;
+    const response = await fetch(proxyUrl);
     if (!response.ok) throw new Error('서버 응답 오류');
     const shortUrl = (await response.text()).trim();
     if (!shortUrl.startsWith('http')) throw new Error('단축에 실패했습니다.');
