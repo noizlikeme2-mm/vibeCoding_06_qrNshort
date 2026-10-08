@@ -1,0 +1,114 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: #f0f0f0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: #ffcc00;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.logo {
+  height: 64px;
+  object-fit: contain;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 48px 40px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+}
+
+.subtitle {
+  color: #555;
+  font-size: 1.05rem;
+  margin-bottom: 28px;
+}
+
+.input-group {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+input[type="url"] {
+  flex: 1;
+  padding: 13px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input[type="url"]:focus {
+  border-color: #ffcc00;
+}
+
+#generateBtn {
+  padding: 13px 22px;
+  background: #ffcc00;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+
+#generateBtn:hover { background: #e6b800; }
+#generateBtn:active { transform: scale(0.97); }
+
+#qrcode {
+  display: flex;
+  justify-content: center;
+}
+
+#qrcode canvas,
+#qrcode img {
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.download-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 13px;
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.download-btn:hover { background: #333; }
+
+.hidden { display: none; }

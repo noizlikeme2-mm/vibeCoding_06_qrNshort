@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL2QR</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="img/logo.png" alt="URL2QR" class="logo" />
+  </header>
+
+  <main>
+    <div class="card">
+      <p class="subtitle">URL을 QR 코드로 변환하세요</p>
+      <div class="input-group">
+        <input
+          type="url"
+          id="urlInput"
+          placeholder="https://example.com"
+          autocomplete="off"
+        />
+        <button id="generateBtn">생성</button>
+      </div>
+      <div id="qrcode"></div>
+      <button id="downloadBtn" class="download-btn hidden">JPG 저장</button>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

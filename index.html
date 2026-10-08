@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QRnShort</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <img src="url2qr/img/logo.png" alt="QRnShort" class="logo" />
+    <span class="brand">QRnShort</span>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="qr">QR 코드</button>
+    <button class="tab-btn" data-tab="short">URL 단축</button>
+  </nav>
+
+  <main>
+    <section id="tab-qr" class="tab-content active">
+      <iframe src="url2qr/index.html" title="URL2QR" frameborder="0"></iframe>
+    </section>
+
+    <section id="tab-short" class="tab-content">
+      <div class="card">
+        <h2>URL 단축기</h2>
+        <p class="desc">긴 URL을 짧게 줄여드립니다</p>
+        <div class="input-group">
+          <input
+            type="url"
+            id="longUrl"
+            placeholder="https://example.com/very/long/url"
+            autocomplete="off"
+          />
+          <button id="shortenBtn">단축</button>
+        </div>
+        <div id="result" class="result hidden">
+          <p class="result-label">단축된 URL</p>
+          <div class="result-row">
+            <input type="text" id="shortUrl" readonly />
+            <button id="copyBtn">복사</button>
+          </div>
+          <p id="copyMsg" class="copy-msg hidden">✓ 복사되었습니다!</p>
+        </div>
+        <div id="errorMsg" class="error-msg hidden"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
